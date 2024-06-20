@@ -106,7 +106,7 @@ int obterNumDiscos() {
 
 void jogarHanoi() {
     while (1) {
-        printf("Bem-vindo ao Jogo da Torre de Hanoi!\n");
+        printf("\nBem-vindo ao Jogo da Torre de Hanoi!\n");
         printf("Regras do jogo:\n");
         printf("1. Apenas um anel pode ser movido por vez.\n");
         printf("2. Um anel so pode ser colocado sobre um anel maior ou em uma torre vazia.\n");
