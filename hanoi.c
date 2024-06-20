@@ -20,3 +20,19 @@ int pop(Torre *torre) {
     }
     return -1;
 }
+
+void imprimirDisco(int disco, int max_discos) {
+    int largura = max_discos * 2 - 1;
+    int num_hashes = disco * 2 - 1;
+    int num_espacos = (largura - num_hashes) / 2;
+    
+    for (int i = 0; i < num_espacos; i++) {
+        printf(" ");
+    }
+    for (int i = 0; i < num_hashes; i++) {
+        printf("#");
+    }
+    for (int i = 0; i < num_espacos; i++) {
+        printf(" ");
+    }
+}
