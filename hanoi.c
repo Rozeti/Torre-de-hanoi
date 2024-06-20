@@ -74,3 +74,32 @@ int movimentoValido(Torre *de, Torre *para) {
     if (para->topo == -1) return 1;
     return de->discos[de->topo] < para->discos[para->topo];
 }
+
+int obterNumDiscos() {
+    char entrada[10];
+    int num_discos;
+
+    while (1) {
+        printf("\nDigite o numero de aneis (ou 0 para encerrar): ");
+        scanf("%s", entrada);
+
+        int is_numeric = 1;
+        for (int i = 0; i < strlen(entrada); i++) {
+            if (!isdigit(entrada[i])) {
+                is_numeric = 0;
+                break;
+            }
+        }
+
+        if (is_numeric) {
+            num_discos = atoi(entrada);
+            if (num_discos >= 0 && num_discos <= MAX_DISKS) {
+                return num_discos;
+            } else {
+                printf("Numero de aneis invalido! Deve estar entre 0 e %d.\n", MAX_DISKS);
+            }
+        } else {
+            printf("Entrada invalida! Por favor, insira um numero.\n");
+        }
+    }
+}
