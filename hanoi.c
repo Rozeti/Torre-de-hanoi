@@ -103,3 +103,95 @@ int obterNumDiscos() {
         }
     }
 }
+
+void jogarHanoi() {
+    while (1) {
+        printf("Bem-vindo ao Jogo da Torre de Hanoi!\n");
+        printf("Regras do jogo:\n");
+        printf("1. Apenas um anel pode ser movido por vez.\n");
+        printf("2. Um anel so pode ser colocado sobre um anel maior ou em uma torre vazia.\n");
+        printf("3. O objetivo e mover todos os aneis da Torre A para a Torre B ou C.\n");
+        printf("4. Para encerrar o jogo a qualquer momento, digite 0.\n");
+        printf("5. Para reiniciar o jogo a qualquer momento, digite R.\n");
+
+        int num_discos = obterNumDiscos();
+
+        if (num_discos == 0) {
+            printf("Jogo encerrado.\n");
+            return;
+        }
+
+        Torre torres[3];
+        for (int i = 0; i < 3; i++) {
+            iniciarTorre(&torres[i]);
+        }
+
+        for (int i = num_discos; i > 0; i--) {
+            push(&torres[0], i);
+        }
+
+        char de, para;
+        int de_idx, para_idx;
+
+        while (torres[1].topo != num_discos - 1 && torres[2].topo != num_discos - 1) {
+            imprimirTorres(torres, num_discos);
+            printf("Digite o movimento (ex: AB para mover de A para B, R para reiniciar ou 0 para encerrar): ");
+            scanf(" %c", &de);
+
+            if (de == '0') {
+                printf("Jogo encerrado.\n");
+                return;
+            }
+
+            if (de == 'R' || de == 'r') {
+                break;
+            }
+
+            scanf("%c", &para);
+
+            de = toupper(de);
+            para = toupper(para);
+
+            de_idx = de - 'A';
+            para_idx = para - 'A';
+
+            if (de_idx < 0 || de_idx > 2 || para_idx < 0 || para_idx > 2) {
+                printf("Torre invalida!\n");
+                continue;
+            }
+
+            if (!movimentoValido(&torres[de_idx], &torres[para_idx])) {
+                printf("Movimento invalido!\n");
+                continue;
+            }
+
+            push(&torres[para_idx], pop(&torres[de_idx]));
+        }
+
+        if (torres[1].topo == num_discos - 1 || torres[2].topo == num_discos - 1) {
+            imprimirTorres(torres, num_discos);
+            printf("Parabens! Voce completou o jogo.\n");
+            
+            char escolha;
+            while (1) {
+                printf("Deseja jogar novamente? (S para sim, N para nao): ");
+                scanf(" %c", &escolha);
+                escolha = toupper(escolha);
+
+                if (escolha == 'N') {
+                    printf("Jogo encerrado.\n");
+                    return;
+                } else if (escolha == 'S') {
+                    break;
+                } else {
+                    printf("Entrada invalida! Por favor, digite S para sim ou N para nao.\n");
+                }
+            }
+        }
+    }
+}
+
+int main() {
+    jogarHanoi();
+    return 0;
+}
