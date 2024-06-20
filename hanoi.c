@@ -68,3 +68,9 @@ void imprimirTorres(Torre torres[], int num_discos) {
     for (int i = 0; i < largura - 2; i++) printf(" ");
     printf("  C  \n\n");
 }
+
+int movimentoValido(Torre *de, Torre *para) {
+    if (de->topo == -1) return 0;
+    if (para->topo == -1) return 1;
+    return de->discos[de->topo] < para->discos[para->topo];
+}
